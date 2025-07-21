@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumiku - Tejiendo Infancias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'lumiku-coral': '#E6A485',
+                        'lumiku-cream': '#F5E6D3',
+                        'lumiku-gold': '#F4C57C',
+                        'lumiku-brown': '#8B6F47',
+                        'lumiku-warm': '#FDF8F3',
+                        'lumiku-dark': '#5A4A3A',
+                        'lumiku-soft': '#C4956C'
+                    },
+                    fontFamily: {
+                        'rounded': ['ui-rounded', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #FDF8F3 0%, #F5E6D3 100%);
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        .floating-delay {
+            animation: float 6s ease-in-out infinite 2s;
+        }
+        .floating-slow {
+            animation: float 8s ease-in-out infinite 4s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        .heart-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .star-decoration::before {
+            content: "✨";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.2rem;
+        }
+        .rainbow-border {
+            background: linear-gradient(45deg, #E6A485, #F4C57C, #E6A485);
+            background-size: 200% 200%;
+            animation: rainbow 3s ease infinite;
+        }
+        @keyframes rainbow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+    </style>
+</head>
+<body class="font-rounded text-lumiku-dark overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 shadow-sm border-b-2 border-lumiku-cream">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-lumiku-coral to-lumiku-gold rounded-full flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-lg">🌟</span>
+                    </div>
+                    <div>
+                        <span class="font-bold text-xl text-lumiku-dark">LUMIKU</span>
+                        <p class="text-xs text-lumiku-soft -mt-1">Tejiendo Infancias</p>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button class="md:hidden text-lumiku-dark" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                
+                <!-- Desktop menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="text-lumiku-dark hover:text-lumiku-coral transition-colors font-medium flex items-center">
+                        🏠 Inicio
+                    </a>
+                    <a href="#servicios" class="text-lumiku-dark hover:text-lumiku-coral transition-colors font-medium flex items-center">
+                        🎯 Servicios
+                    </a>
+                    <a href="#enfoque" class="text-lumiku-dark hover:text-lumiku-coral transition-colors font-medium flex items-center">
+                        💝 Enfoque
+                    </a>
+                    <a href="#contacto" class="text-lumiku-dark hover:text-lumiku-coral transition-colors font-medium flex items-center">
+                        📞 Contacto
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="#inicio" class="text-lumiku-dark hover:text-lumiku-coral transition-colors font-medium flex items-center" onclick="toggleMobileMenu()">🏠 Inicio</a>
+                    <a href="#servicios" class="text-lumiku-dark hover:text-lumiku-coral transition-colors font-medium flex items-center" onclick="toggleMobileMenu()">🎯 Servicios</a>
+                    <a href="#enfoque" class="text-lumiku-dark hover:text-lumiku-coral transition-colors font-medium flex items-center" onclick="toggleMobileMenu()">💝 Enfoque</a>
+                    <a href="#contacto" class="text-lumiku-dark hover:text-lumiku-coral transition-colors font-medium flex items-center" onclick="toggleMobileMenu()">📞 Contacto</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="gradient-bg pt-20 pb-16 min-h-screen flex items-center relative overflow-hidden">
+        <!-- Decorative elements - Hidden on mobile -->
+        <div class="floating absolute top-20 left-10 text-4xl hidden md:block">🌈</div>
+        <div class="floating-delay absolute top-32 right-20 text-3xl hidden md:block">🎈</div>
+        <div class="floating-slow absolute bottom-32 left-20 text-3xl hidden md:block">⭐</div>
+        <div class="floating absolute bottom-20 right-10 text-2xl hidden md:block">🦋</div>
+        
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-8 lg:mb-0">
+                    <div class="text-center lg:text-left">
+                        <div class="inline-block mb-4">
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-lumiku-dark mb-2 leading-tight">
+                                LUMIKU
+                            </h1>
+                            <div class="flex items-center justify-center lg:justify-start space-x-2">
+                                <span class="text-lg sm:text-xl text-lumiku-brown font-medium">Tejiendo</span>
+                                <span class="text-2xl">🧸</span>
+                                <span class="text-lg sm:text-xl text-lumiku-brown font-medium">Infancias</span>
+                            </div>
+                        </div>
+                        
+                        <p class="text-lg sm:text-xl text-lumiku-dark/80 mb-8 leading-relaxed">
+                            <span class="text-2xl mr-2">💕</span>
+                            Un espacio seguro donde cada niño y niña puede crecer sintiéndose 
+                            <span class="font-semibold text-lumiku-coral">visto</span>, 
+                            <span class="font-semibold text-lumiku-gold">escuchado</span> y 
+                            <span class="font-semibold text-lumiku-coral">contenido</span> emocionalmente.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <a href="#servicios" class="rainbow-border p-0.5 rounded-full group">
+                                <div class="bg-lumiku-coral hover:bg-lumiku-coral/90 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2">
+                                    <span>🌟</span>
+                                    <span>Conoce nuestros servicios</span>
+                                </div>
+                            </a>
+                            <a href="#contacto" class="border-3 border-lumiku-coral text-lumiku-coral hover:bg-lumiku-coral hover:text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center justify-center space-x-2">
+                                <span>📅</span>
+                                <span>Agenda una cita</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 lg:pl-12">
+                    <div class="relative">
+                        <!-- Decorative background elements -->
+                        <div class="floating absolute -top-6 -left-6 w-20 h-20 bg-lumiku-gold/30 rounded-full"></div>
+                        <div class="floating-delay absolute -bottom-6 -right-6 w-16 h-16 bg-lumiku-cream/50 rounded-full"></div>
+                        <div class="floating-slow absolute top-10 -right-4 text-3xl">🌻</div>
+                        
+                        <!-- Main illustration -->
+                        <div class="bg-white rounded-3xl p-8 shadow-2xl border-4 border-lumiku-cream relative">
+                            <div class="text-center">
+                                <div class="relative inline-block mb-6">
+                                    <div class="w-32 h-32 mx-auto bg-gradient-to-br from-lumiku-coral to-lumiku-gold rounded-full flex items-center justify-center shadow-lg">
+                                        <div class="w-20 h-20 bg-lumiku-cream rounded-full flex items-center justify-center">
+                                            <div class="flex space-x-1">
+                                                <span class="text-2xl">👨‍👩‍👧‍👦</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="absolute -top-2 -right-2 text-2xl animate-bounce">💝</div>
+                                    <div class="absolute -bottom-2 -left-2 text-xl animate-pulse">🌟</div>
+                                </div>
+                                
+                                <h3 class="text-xl font-bold text-lumiku-dark mb-4 flex items-center justify-center">
+                                    <span class="mr-2">🤗</span>
+                                    Acompañamiento Integral
+                                </h3>
+                                <p class="text-lumiku-dark/70 leading-relaxed">
+                                    Trabajamos desde una mirada respetuosa y sin juicios hacia cada historia familiar, 
+                                    priorizando la conexión emocional y el vínculo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="py-20 px-4 bg-white relative">
+        <!-- Decorative elements - Hidden on mobile -->
+        <div class="floating absolute top-10 left-10 text-3xl opacity-20 hidden md:block">🎨</div>
+        <div class="floating-delay absolute top-20 right-10 text-3xl opacity-20 hidden md:block">🎭</div>
+        
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 slide-up">
+                <h2 class="text-3xl sm:text-4xl font-bold text-lumiku-dark mb-4 flex flex-col sm:flex-row items-center justify-center">
+                    <span class="mb-2 sm:mb-0 sm:mr-3">🌈</span>
+                    <span>Nuestros Servicios</span>
+                    <span class="mt-2 sm:mt-0 sm:ml-3 hidden">🌈</span>
+                </h2>
+                <p class="text-lg text-lumiku-dark/70 max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-center">
+                    <span class="mb-2 sm:mb-0 sm:mr-2">🎯</span>
+                    <span class="text-center">Ofrecemos diferentes modalidades terapéuticas adaptadas a las necesidades de cada niño, niña y familia.</span>
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+                <div class="bg-gradient-to-br from-lumiku-warm to-lumiku-cream rounded-3xl p-6 lg:p-8 shadow-xl border-2 border-lumiku-cream/50 slide-up relative overflow-hidden">
+                    <div class="absolute top-4 right-4 text-xl lg:text-2xl opacity-30 hidden sm:block">🌟</div>
+                    <div class="w-14 h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-lumiku-coral to-lumiku-coral/80 rounded-full flex items-center justify-center mb-6 shadow-lg mx-auto sm:mx-0">
+                        <span class="text-white text-xl lg:text-2xl">🧒</span>
+                    </div>
+                    <h3 class="text-lg lg:text-xl font-bold text-lumiku-dark mb-4 text-center sm:text-left">Terapia Individual</h3>
+                    <p class="text-lumiku-dark/70 mb-4 leading-relaxed text-center sm:text-left">
+                        <span class="text-lg mr-1">🎨</span>
+                        Espacio donde el niño/a puede explorar y elaborar sus emociones desde el juego, el arte o el diálogo.
+                    </p>
+                    <div class="space-y-2 text-sm text-lumiku-dark/60">
+                        <div class="flex items-center justify-center sm:justify-start">
+                            <span class="mr-2">🎈</span>
+                            <span>Para niños, niñas y adolescentes</span>
+                        </div>
+                        <div class="flex items-center justify-center sm:justify-start">
+                            <span class="mr-2">🌱</span>
+                            <span>Adaptado a cada etapa de desarrollo</span>
+                        </div>
+                        <div class="flex items-center justify-center sm:justify-start">
+                            <span class="mr-2">🎭</span>
+                            <span>Enfoque en el mundo simbólico</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-lumiku-warm to-lumiku-cream rounded-3xl p-6 lg:p-8 shadow-xl border-2 border-lumiku-cream/50 slide-up relative overflow-hidden">
+                    <div class="absolute top-4 right-4 text-xl lg:text-2xl opacity-30 hidden sm:block">🌺</div>
+                    <div class="w-14 h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-lumiku-gold to-lumiku-gold/80 rounded-full flex items-center justify-center mb-6 shadow-lg mx-auto sm:mx-0">
+                        <span class="text-white text-xl lg:text-2xl">👭</span>
+                    </div>
+                    <h3 class="text-lg lg:text-xl font-bold text-lumiku-dark mb-4 text-center sm:text-left">Terapia Grupal</h3>
+                    <p class="text-lumiku-dark/70 mb-4 leading-relaxed text-center sm:text-left">
+                        <span class="text-lg mr-1">🤝</span>
+                        A través del encuentro con pares, promovemos el desarrollo de habilidades socioemocionales.
+                    </p>
+                    <div class="space-y-2 text-sm text-lumiku-dark/60">
+                        <div class="flex items-center justify-center sm:justify-start">
+                            <span class="mr-2">👦👧</span>
+                            <span>Grupos infantiles y adolescentes</span>
+                        </div>
+                        <div class="flex items-center justify-center sm:justify-start">
+                            <span class="mr-2">🦋</span>
+                            <span>Desarrollo de identidad</span>
+                        </div>
+                        <div class="flex items-center justify-center sm:justify-start">
+                            <span class="mr-2">🤗</span>
+                            <span>Reconocimiento del otro</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-lumiku-warm to-lumiku-cream rounded-3xl p-6 lg:p-8 shadow-xl border-2 border-lumiku-cream/50 slide-up relative overflow-hidden">
+                    <div class="absolute top-4 right-4 text-xl lg:text-2xl opacity-30 hidden sm:block">💕</div>
+                    <div class="w-14 h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-lumiku-coral to-lumiku-coral/80 rounded-full flex items-center justify-center mb-6 shadow-lg mx-auto sm:mx-0">
+                        <span class="text-white text-xl lg:text-2xl">👨‍👩‍👧</span>
+                    </div>
+                    <h3 class="text-lg lg:text-xl font-bold text-lumiku-dark mb-4 text-center sm:text-left">Terapia Vincular</h3>
+                    <p class="text-lumiku-dark/70 mb-4 leading-relaxed text-center sm:text-left">
+                        <span class="text-lg mr-1">💞</span>
+                        Espacios terapéuticos donde se trabaja en la reconstrucción del lazo afectivo familiar.
+                    </p>
+                    <div class="space-y-2 text-sm text-lumiku-dark/60">
+                        <div class="flex items-center justify-center sm:justify-start">
+                            <span class="mr-2">👨‍👩‍👧‍👦</span>
+                            <span>Con padres y/o cuidadores</span>
+                        </div>
+                        <div class="flex items-center justify-center sm:justify-start">
+                            <span class="mr-2">💝</span>
+                            <span>Fortalecimiento del vínculo seguro</span>
+                        </div>
+                        <div class="flex items-center justify-center sm:justify-start">
+                            <span class="mr-2">🤲</span>
+                            <span>Comprensión mutua</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-lumiku-warm to-lumiku-cream rounded-3xl p-6 lg:p-8 shadow-xl border-2 border-lumiku-cream/50 slide-up relative overflow-hidden">
+                    <div class="absolute top-4 right-4 text-xl lg:text-2xl opacity-30 hidden sm:block">🌻</div>
+                    <div class="w-14 h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-lumiku-gold to-lumiku-gold/80 rounded-full flex items-center justify-center mb-6 shadow-lg mx-auto sm:mx-0">
+                        <span class="text-white text-xl lg:text-2xl">🤱</span>
+                    </div>
+                    <h3 class="text-lg lg:text-xl font-bold text-lumiku-dark mb-4 text-center sm:text-left">Acompañamiento a Padres</h3>
+                    <p class="text-lumiku-dark/70 mb-4 leading-relaxed text-center sm:text-left">
+                        <span class="text-lg mr-1">🌈</span>
+                        Orientación y reflexión sobre la crianza, basados en la empatía y el aprendizaje mutuo.
+                    </p>
+                    <div class="space-y-2 text-sm text-lumiku-dark/60">
+                        <div class="flex items-center justify-center sm:justify-start">
+                            <span class="mr-2">💛</span>
+                            <span>Adultos disponibles emocionalmente</span>
+                        </div>
+                        <div class="flex items-center justify-center sm:justify-start">
+                            <span class="mr-2">🌸</span>
+                            <span>Sin búsqueda de perfección</span>
+                        </div>
+                        <div class="flex items-center justify-center sm:justify-start">
+                            <span class="mr-2">👂</span>
+                            <span>Escucha y comprensión</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Approach Section -->
+    <section id="enfoque" class="py-20 px-4 gradient-bg relative">
+        <!-- Decorative elements - Hidden on mobile -->
+        <div class="floating absolute top-16 left-16 text-2xl opacity-30 hidden md:block">🎪</div>
+        <div class="floating-delay absolute bottom-16 right-16 text-2xl opacity-30 hidden md:block">🎠</div>
+        
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 slide-up">
+                <h2 class="text-3xl sm:text-4xl font-bold text-lumiku-dark mb-4 flex flex-col sm:flex-row items-center justify-center">
+                    <span class="mb-2 sm:mb-0 sm:mr-3">🎯</span>
+                    <span>Nuestro Enfoque</span>
+                    <span class="mt-2 sm:mt-0 sm:ml-3 hidden">🎯</span>
+                </h2>
+                <p class="text-lg text-lumiku-dark/70 max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-center">
+                    <span class="mb-2 sm:mb-0 sm:mr-2">🧠</span>
+                    <span class="text-center">Un enfoque psicoterapéutico integrador basado en la conexión, el respeto y la comprensión.</span>
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8 mb-16">
+                <div class="text-center slide-up">
+                    <div class="relative inline-block mb-6">
+                        <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto shadow-xl border-4 border-lumiku-cream">
+                            <span class="text-4xl">🧠</span>
+                        </div>
+                        <div class="absolute -top-2 -right-2 text-lg animate-bounce">💝</div>
+                    </div>
+                    <h3 class="text-xl font-bold text-lumiku-dark mb-4">Teoría del Apego</h3>
+                    <p class="text-lumiku-dark/70 leading-relaxed">
+                        <span class="text-lg mr-1">🤱</span>
+                        La importancia de los vínculos tempranos en la estructuración emocional y mental del niño/a.
+                    </p>
+                </div>
+                
+                <div class="text-center slide-up">
+                    <div class="relative inline-block mb-6">
+                        <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto shadow-xl border-4 border-lumiku-cream">
+                            <span class="text-4xl">🎨</span>
+                        </div>
+                        <div class="absolute -top-2 -right-2 text-lg animate-bounce">✨</div>
+                    </div>
+                    <h3 class="text-xl font-bold text-lumiku-dark mb-4">Terapias Expresivas</h3>
+                    <p class="text-lumiku-dark/70 leading-relaxed">
+                        <span class="text-lg mr-1">🎭</span>
+                        Arte terapia, terapia de juego y caja de arena para la expresión desde el mundo simbólico.
+                    </p>
+                </div>
+                
+                <div class="text-center slide-up">
+                    <div class="relative inline-block mb-6">
+                        <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto shadow-xl border-4 border-lumiku-cream">
+                            <span class="text-4xl">👨‍👩‍👧‍👦</span>
+                        </div>
+                        <div class="absolute -top-2 -right-2 text-lg animate-bounce">🌈</div>
+                    </div>
+                    <h3 class="text-xl font-bold text-lumiku-dark mb-4">Perspectiva Vincular</h3>
+                    <p class="text-lumiku-dark/70 leading-relaxed">
+                        <span class="text-lg mr-1">🤗</span>
+                        Trabajamos incluyendo a la familia desde una mirada comprensiva y sin culpabilización.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-2xl slide-up border-4 border-lumiku-cream/50 relative overflow-hidden">
+                <div class="absolute top-6 right-6 text-3xl opacity-20">🌟</div>
+                <div class="absolute bottom-6 left-6 text-2xl opacity-20">💖</div>
+                
+                <div class="text-center max-w-4xl mx-auto">
+                    <div class="flex items-center justify-center mb-6">
+                        <span class="text-3xl mr-3">💭</span>
+                        <h3 class="text-2xl font-bold text-lumiku-dark">Nuestra Filosofía</h3>
+                        <span class="text-3xl ml-3">💭</span>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-lumiku-warm to-lumiku-cream rounded-2xl p-6 mb-6 border-2 border-lumiku-cream">
+                        <p class="text-lg text-lumiku-dark/80 leading-relaxed italic">
+                            <span class="text-2xl mr-2">🗣️</span>
+                            "En Lumiku, entendemos que cada conducta infantil es una forma de comunicación, 
+                            un lenguaje que necesita ser traducido con respeto."
+                        </p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 text-left">
+                        <div class="flex items-start">
+                            <span class="text-2xl mr-3 mt-1">🔍</span>
+                            <div>
+                                <p class="font-semibold text-lumiku-dark mb-1">Más que corregir</p>
+                                <p class="text-lumiku-dark/70">buscamos comprender</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <span class="text-2xl mr-3 mt-1">🤝</span>
+                            <div>
+                                <p class="font-semibold text-lumiku-dark mb-1">Más que señalar errores</p>
+                                <p class="text-lumiku-dark/70">acompañamos en la búsqueda de sentido</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center mt-8">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 bg-lumiku-coral rounded-full animate-pulse"></div>
+                            <div class="w-3 h-3 bg-lumiku-gold rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+                            <div class="w-3 h-3 bg-lumiku-coral rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-20 bg-white relative">
+        <!-- Decorative elements - Hidden on mobile -->
+        <div class="floating absolute top-10 left-10 text-2xl opacity-20 hidden md:block">📞</div>
+        <div class="floating-delay absolute top-20 right-10 text-2xl opacity-20 hidden md:block">💌</div>
+        
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 slide-up">
+                <h2 class="text-3xl sm:text-4xl font-bold text-lumiku-dark mb-4 flex flex-col sm:flex-row items-center justify-center">
+                    <span class="mb-2 sm:mb-0 sm:mr-3">📱</span>
+                    <span>Contáctanos</span>
+                    <span class="mt-2 sm:mt-0 sm:ml-3 hidden">📱</span>
+                </h2>
+                <p class="text-lg text-lumiku-dark/70 max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-center">
+                    <span class="mb-2 sm:mb-0 sm:mr-2">🌟</span>
+                    <span class="text-center">Estamos aquí para acompañarte. Da el primer paso hacia el bienestar emocional de tu familia.</span>
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
+                <div class="slide-up">
+                    <div class="bg-gradient-to-br from-lumiku-warm to-lumiku-cream rounded-3xl p-6 lg:p-8 h-full border-2 border-lumiku-cream/50 relative overflow-hidden">
+                        <div class="absolute top-4 right-4 text-2xl opacity-30 hidden sm:block">🎈</div>
+                        <h3 class="text-xl lg:text-2xl font-bold text-lumiku-dark mb-6 lg:mb-8 flex flex-col sm:flex-row items-center text-center sm:text-left">
+                            <span class="mb-2 sm:mb-0 sm:mr-3">🤗</span>
+                            <span>¿Cómo podemos ayudarte?</span>
+                        </h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4 bg-white/50 rounded-2xl p-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-lumiku-coral to-lumiku-coral/80 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                                    <span class="text-white">📞</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lumiku-dark mb-1 flex items-center">
+                                        <span class="mr-2">☎️</span>
+                                        Teléfono
+                                    </h4>
+                                    <p class="text-lumiku-dark/70 font-medium">+52 33 1767 4245</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4 bg-white/50 rounded-2xl p-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-lumiku-gold to-lumiku-gold/80 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                                    <span class="text-white">✉️</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lumiku-dark mb-1 flex items-center">
+                                        <span class="mr-2">📧</span>
+                                        Email
+                                    </h4>
+                                    <p class="text-lumiku-dark/70 font-medium">contacto@lumiku.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4 bg-white/50 rounded-2xl p-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-lumiku-coral to-lumiku-coral/80 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                                    <span class="text-white">📍</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lumiku-dark mb-1 flex items-center">
+                                        <span class="mr-2">🏠</span>
+                                        Ubicación
+                                    </h4>
+                                    <p class="text-lumiku-dark/70 font-medium">Zapopan, Jalisco<br>México</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4 bg-white/50 rounded-2xl p-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-lumiku-gold to-lumiku-gold/80 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                                    <span class="text-white">🕒</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lumiku-dark mb-1 flex items-center">
+                                        <span class="mr-2">⏰</span>
+                                        Horarios
+                                    </h4>
+                                    <p class="text-lumiku-dark/70 font-medium">Lunes a Viernes<br>9:00 AM - 7:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slide-up">
+                    <form id="contact-form" class="bg-white rounded-3xl p-6 lg:p-8 shadow-2xl border-2 border-lumiku-cream/50 relative overflow-hidden">
+                        <div class="absolute top-4 right-4 text-2xl opacity-30 hidden sm:block">🌈</div>
+                        <h3 class="text-xl lg:text-2xl font-bold text-lumiku-dark mb-6 flex flex-col sm:flex-row items-center text-center sm:text-left">
+                            <span class="mb-2 sm:mb-0 sm:mr-3">📋</span>
+                            <span>Agenda tu consulta</span>
+                            <span class="mr-3 hidden">📋</span>
+                        </h3>
+                        
+                        <div class="space-y-4 lg:space-y-5">
+                            <div class="grid sm:grid-cols-2 gap-3 lg:gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-lumiku-dark mb-2 flex flex-col sm:flex-row items-start sm:items-center">
+                                        <span class="mr-0 sm:mr-2 mb-1 sm:mb-0">👤</span>
+                                        <span>Nombre completo*</span>
+                                    </label>
+                                    <input type="text" id="nombre" required class="w-full px-3 lg:px-4 py-3 border-2 border-lumiku-cream rounded-xl focus:outline-none focus:ring-2 focus:ring-lumiku-coral focus:border-lumiku-coral transition-all text-lumiku-dark placeholder-lumiku-soft bg-lumiku-warm/30 text-sm lg:text-base" placeholder="Nombre y apellidos">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-bold text-lumiku-dark mb-2 flex flex-col sm:flex-row items-start sm:items-center">
+                                        <span class="mr-0 sm:mr-2 mb-1 sm:mb-0">📱</span>
+                                        <span>Teléfono*</span>
+                                    </label>
+                                    <input type="tel" id="telefono" required class="w-full px-3 lg:px-4 py-3 border-2 border-lumiku-cream rounded-xl focus:outline-none focus:ring-2 focus:ring-lumiku-coral focus:border-lumiku-coral transition-all text-lumiku-dark placeholder-lumiku-soft bg-lumiku-warm/30 text-sm lg:text-base" placeholder="33 1234 5678">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-lumiku-dark mb-2 flex flex-col sm:flex-row items-start sm:items-center">
+                                    <span class="mr-0 sm:mr-2 mb-1 sm:mb-0">📧</span>
+                                    <span>Email</span>
+                                </label>
+                                <input type="email" id="email" class="w-full px-3 lg:px-4 py-3 border-2 border-lumiku-cream rounded-xl focus:outline-none focus:ring-2 focus:ring-lumiku-coral focus:border-lumiku-coral transition-all text-lumiku-dark placeholder-lumiku-soft bg-lumiku-warm/30 text-sm lg:text-base" placeholder="tu@email.com">
+                            </div>
+                            
+                            <div class="grid sm:grid-cols-2 gap-3 lg:gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-lumiku-dark mb-2 flex flex-col sm:flex-row items-start sm:items-center">
+                                        <span class="mr-0 sm:mr-2 mb-1 sm:mb-0">🎂</span>
+                                        <span>Edad del paciente*</span>
+                                    </label>
+                                    <select id="edad" required class="w-full px-3 lg:px-4 py-3 border-2 border-lumiku-cream rounded-xl focus:outline-none focus:ring-2 focus:ring-lumiku-coral focus:border-lumiku-coral transition-all text-lumiku-dark bg-lumiku-warm/30 text-sm lg:text-base">
+                                        <option value="">Selecciona edad</option>
+                                        <option value="0-3 años">🍼 0-3 años</option>
+                                        <option value="4-6 años">🧸 4-6 años</option>
+                                        <option value="7-10 años">🎒 7-10 años</option>
+                                        <option value="11-14 años">🎮 11-14 años</option>
+                                        <option value="15-18 años">📚 15-18 años</option>
+                                        <option value="Adulto">👨‍👩‍👧‍👦 Adulto</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-bold text-lumiku-dark mb-2 flex flex-col sm:flex-row items-start sm:items-center">
+                                        <span class="mr-0 sm:mr-2 mb-1 sm:mb-0">🎯</span>
+                                        <span>Tipo de consulta*</span>
+                                    </label>
+                                    <select id="tipo-consulta" required class="w-full px-3 lg:px-4 py-3 border-2 border-lumiku-cream rounded-xl focus:outline-none focus:ring-2 focus:ring-lumiku-coral focus:border-lumiku-coral transition-all text-lumiku-dark bg-lumiku-warm/30 text-sm lg:text-base">
+                                        <option value="">Selecciona tipo</option>
+                                        <option value="Terapia individual">🧒 Terapia individual</option>
+                                        <option value="Terapia grupal">👭 Terapia grupal</option>
+                                        <option value="Terapia vincular">👨‍👩‍👧 Terapia vincular</option>
+                                        <option value="Acompañamiento a padres">🤱 Acompañamiento a padres</option>
+                                        <option value="Orientación general">💭 Orientación general</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="grid sm:grid-cols-2 gap-3 lg:gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-lumiku-dark mb-3 flex flex-col sm:flex-row items-start sm:items-center">
+                                        <span class="mr-0 sm:mr-2 mb-1 sm:mb-0">⏰</span>
+                                        <span>Disponibilidad horaria*</span>
+                                    </label>
+                                    <div class="space-y-2 lg:space-y-3">
+                                        <label class="flex items-center bg-lumiku-warm/30 rounded-xl p-2 lg:p-3 border-2 border-lumiku-cream hover:border-lumiku-coral transition-colors cursor-pointer">
+                                            <input type="checkbox" name="horario" value="Mañanas" class="w-4 h-4 lg:w-5 lg:h-5 text-lumiku-coral border-2 border-lumiku-cream rounded focus:ring-lumiku-coral flex-shrink-0">
+                                            <span class="ml-2 lg:ml-3 text-lumiku-dark font-medium flex items-center text-sm lg:text-base">
+                                                <span class="mr-1 lg:mr-2">🌅</span>
+                                                <span>Mañanas (9:00 - 13:00)</span>
+                                            </span>
+                                        </label>
+                                        <label class="flex items-center bg-lumiku-warm/30 rounded-xl p-2 lg:p-3 border-2 border-lumiku-cream hover:border-lumiku-coral transition-colors cursor-pointer">
+                                            <input type="checkbox" name="horario" value="Tardes" class="w-4 h-4 lg:w-5 lg:h-5 text-lumiku-coral border-2 border-lumiku-cream rounded focus:ring-lumiku-coral flex-shrink-0">
+                                            <span class="ml-2 lg:ml-3 text-lumiku-dark font-medium flex items-center text-sm lg:text-base">
+                                                <span class="mr-1 lg:mr-2">🌆</span>
+                                                <span>Tardes (14:00 - 19:00)</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-bold text-lumiku-dark mb-2 flex flex-col sm:flex-row items-start sm:items-center">
+                                        <span class="mr-0 sm:mr-2 mb-1 sm:mb-0">🚨</span>
+                                        <span>Urgencia*</span>
+                                    </label>
+                                    <select id="urgencia" required class="w-full px-3 lg:px-4 py-3 border-2 border-lumiku-cream rounded-xl focus:outline-none focus:ring-2 focus:ring-lumiku-coral focus:border-lumiku-coral transition-all text-lumiku-dark bg-lumiku-warm/30 text-sm lg:text-base">
+                                        <option value="">Nivel de urgencia</option>
+                                        <option value="Urgente (esta semana)">🔴 Urgente (esta semana)</option>
+                                        <option value="Pronto (próximas 2 semanas)">🟡 Pronto (próximas 2 semanas)</option>
+                                        <option value="Normal (próximo mes)">🟢 Normal (próximo mes)</option>
+                                        <option value="Sin prisa">🔵 Sin prisa</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-lumiku-dark mb-2 flex flex-col sm:flex-row items-start sm:items-center">
+                                    <span class="mr-0 sm:mr-2 mb-1 sm:mb-0">💭</span>
+                                    <span>Razón de consulta*</span>
+                                </label>
+                                <textarea id="razon-consulta" required rows="4" class="w-full px-3 lg:px-4 py-3 border-2 border-lumiku-cream rounded-xl focus:outline-none focus:ring-2 focus:ring-lumiku-coral focus:border-lumiku-coral transition-all resize-none text-lumiku-dark placeholder-lumiku-soft bg-lumiku-warm/30 text-sm lg:text-base" placeholder="🌟 Cuéntanos brevemente qué situación te trae a consulta o qué apoyo buscas para tu familia..."></textarea>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-lumiku-dark mb-2 flex flex-col sm:flex-row items-start sm:items-center">
+                                    <span class="mr-0 sm:mr-2 mb-1 sm:mb-0">🔄</span>
+                                    <span>¿Has tenido experiencia previa en terapia?</span>
+                                </label>
+                                <select id="experiencia" class="w-full px-3 lg:px-4 py-3 border-2 border-lumiku-cream rounded-xl focus:outline-none focus:ring-2 focus:ring-lumiku-coral focus:border-lumiku-coral transition-all text-lumiku-dark bg-lumiku-warm/30 text-sm lg:text-base">
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="Primera vez">✨ Es la primera vez</option>
+                                    <option value="Sí, con otros profesionales">🔄 Sí, con otros profesionales</option>
+                                    <option value="Sí, en Lumiku">💝 Sí, en Lumiku</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="w-full rainbow-border p-0.5 rounded-xl group">
+                                <div class="bg-lumiku-coral hover:bg-lumiku-coral/90 text-white py-3 lg:py-4 rounded-xl font-bold text-base lg:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2 lg:space-x-3">
+                                    <span class="text-xl lg:text-2xl">📱</span>
+                                    <span>Enviar consulta por WhatsApp</span>
+                                    <span class="text-lg lg:text-xl">🚀</span>
+                                </div>
+                            </button>
+                            
+                            <div class="bg-lumiku-warm/50 rounded-xl p-3 border-2 border-lumiku-cream/50">
+                                <p class="text-xs lg:text-sm text-lumiku-dark/70 text-center flex flex-col sm:flex-row items-center justify-center">
+                                    <span class="flex items-center mb-1 sm:mb-0">
+                                        <span class="mr-2">🔒</span>
+                                        <span>* Campos obligatorios. Tu información será tratada con total confidencialidad.</span>
+                                        <span class="ml-2">💝</span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-lumiku-brown text-white py-12 px-4 relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="floating absolute top-10 left-10 text-2xl opacity-30">⭐</div>
+        <div class="floating-delay absolute top-16 right-10 text-2xl opacity-30">🌙</div>
+        
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-lumiku-coral to-lumiku-gold rounded-full flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-xl">🌟</span>
+                    </div>
+                    <div>
+                        <span class="font-bold text-2xl">LUMIKU</span>
+                        <p class="text-sm text-white/80 -mt-1">Tejiendo Infancias</p>
+                    </div>
+                </div>
+                
+                <p class="text-lg font-medium mb-2 flex items-center justify-center">
+                    <span class="mr-2">🧸</span>
+                    Tejiendo Infancias
+                    <span class="ml-2">🧸</span>
+                </p>
+                
+                <p class="text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed flex items-center justify-center flex-wrap">
+                    <span class="mr-2">💕</span>
+                    Acompañando procesos terapéuticos desde una mirada integral, respetuosa y sin juicios hacia cada historia familiar.
+                </p>
+                
+                <div class="border-t border-white/20 pt-8">
+                    <p class="text-white/60 flex items-center justify-center">
+                        <span class="mr-2">📅</span>
+                        © 2025 Lumiku. Todos los derechos reservados.
+                        <span class="ml-2">🌈</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Smooth scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all slide-up elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const slideUpElements = document.querySelectorAll('.slide-up');
+            slideUpElements.forEach(el => observer.observe(el));
+        });
+
+        // Form submission with WhatsApp integration
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value;
+            const telefono = document.getElementById('telefono').value;
+            const email = document.getElementById('email').value;
+            const edad = document.getElementById('edad').value;
+            const tipoConsulta = document.getElementById('tipo-consulta').value;
+            const urgencia = document.getElementById('urgencia').value;
+            const razonConsulta = document.getElementById('razon-consulta').value;
+            const experiencia = document.getElementById('experiencia').value;
+            
+            // Get selected availability hours
+            const horariosSeleccionados = [];
+            const checkboxes = document.querySelectorAll('input[name="horario"]:checked');
+            checkboxes.forEach(checkbox => {
+                horariosSeleccionados.push(checkbox.value);
+            });
+            const horarios = horariosSeleccionados.length > 0 ? horariosSeleccionados.join(', ') : 'No especificado';
+            
+            // Validate required fields
+            if (!nombre || !telefono || !edad || !tipoConsulta || !urgencia || !razonConsulta || horariosSeleccionados.length === 0) {
+                alert('🌟 Por favor, completa todos los campos marcados con * para poder ayudarte mejor 💝');
+                return;
+            }
+            
+            // Create WhatsApp message
+            let mensaje = `🌟 ¡Hola! Me comunico desde la página web de Lumiku para agendar una consulta.
+
+*DATOS PERSONALES:*
+Mi nombre es: ${nombre}
+Teléfono: ${telefono}`;
+            
+            if (email) {
+                mensaje += `
+Email: ${email}`;
+            }
+            
+            mensaje += `
+
+*INFORMACIÓN DE LA CONSULTA:*
+👶 Edad del paciente: ${edad}
+🎯 Tipo de consulta: ${tipoConsulta}
+🚨 Nivel de urgencia: ${urgencia}
+⏰ Disponibilidad horaria: ${horarios}`;
+            
+            if (experiencia) {
+                mensaje += `
+🔄 Experiencia previa en terapia: ${experiencia}`;
+            }
+            
+            mensaje += `
+
+*RAZÓN DE CONSULTA:*
+💭 ${razonConsulta}
+
+Quedo atento/a a su respuesta para coordinar la cita. ¡Gracias! 🌈💝`;
+            
+            // Encode message for URL
+            const mensajeCodificado = encodeURIComponent(mensaje);
+            const numeroWhatsApp = '5213317674245';
+            const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
+            
+            // Open WhatsApp
+            window.open(urlWhatsApp, '_blank');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
