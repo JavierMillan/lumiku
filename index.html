@@ -40,7 +40,7 @@
         }
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-5px) rotate(15deg); }
         }
         .heart-pulse {
             animation: pulse 2s ease-in-out infinite;
@@ -70,6 +70,16 @@
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
+        .logo-placeholder {
+            background: linear-gradient(135deg, #E6A485 0%, #F4C57C 50%, #E6A485 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 <body class="font-rounded text-lumiku-dark overflow-x-hidden">
@@ -78,8 +88,9 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-lumiku-coral to-lumiku-gold rounded-full flex items-center justify-center shadow-lg">
-                        <span class="text-white font-bold text-lg">🌟</span>
+                    <!-- Logo placeholder in navbar -->
+                    <div class="w-10 h-10">
+                        <img src="assets/logo.svg" alt="Lumiku Logo" class="w-10 h-10 object-contain rounded-lg">
                     </div>
                     <div>
                         <span class="font-bold text-xl text-lumiku-dark">LUMIKU</span>
@@ -135,6 +146,14 @@
             <div class="flex flex-col lg:flex-row items-center">
                 <div class="lg:w-1/2 mb-8 lg:mb-0">
                     <div class="text-center lg:text-left">
+                        <!-- Logo principal en el hero -->
+                        <div class="flex justify-center mb-2 lg:justify-start">
+                            <div class="lg:h-48 lg:w-48 sm:w-24 sm:h-24">
+                                <img src="assets/logo.svg" alt="Lumiku Logo Principal" class="lg:h-48 lg:w-48 sm:w-24 sm:h-24 rounded-xl">
+                                
+                            </div>
+                        </div>
+                        
                         <div class="inline-block mb-4">
                             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-lumiku-dark mb-2 leading-tight">
                                 LUMIKU
@@ -147,7 +166,6 @@
                         </div>
                         
                         <p class="text-lg sm:text-xl text-lumiku-dark/80 mb-8 leading-relaxed">
-                            <span class="text-2xl mr-2">💕</span>
                             Un espacio seguro donde cada niño y niña puede crecer sintiéndose 
                             <span class="font-semibold text-lumiku-coral">visto</span>, 
                             <span class="font-semibold text-lumiku-gold">escuchado</span> y 
@@ -187,7 +205,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="absolute -top-2 -right-2 text-2xl animate-bounce">💝</div>
+                                    <div class="absolute -top-2 -right-2 text-2xl animate-pulse">💝</div>
                                     <div class="absolute -bottom-2 -left-2 text-xl animate-pulse">🌟</div>
                                 </div>
                                 
@@ -359,7 +377,6 @@
                         <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto shadow-xl border-4 border-lumiku-cream">
                             <span class="text-4xl">🧠</span>
                         </div>
-                        <div class="absolute -top-2 -right-2 text-lg animate-bounce">💝</div>
                     </div>
                     <h3 class="text-xl font-bold text-lumiku-dark mb-4">Teoría del Apego</h3>
                     <p class="text-lumiku-dark/70 leading-relaxed">
@@ -373,7 +390,6 @@
                         <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto shadow-xl border-4 border-lumiku-cream">
                             <span class="text-4xl">🎨</span>
                         </div>
-                        <div class="absolute -top-2 -right-2 text-lg animate-bounce">✨</div>
                     </div>
                     <h3 class="text-xl font-bold text-lumiku-dark mb-4">Terapias Expresivas</h3>
                     <p class="text-lumiku-dark/70 leading-relaxed">
@@ -387,7 +403,6 @@
                         <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto shadow-xl border-4 border-lumiku-cream">
                             <span class="text-4xl">👨‍👩‍👧‍👦</span>
                         </div>
-                        <div class="absolute -top-2 -right-2 text-lg animate-bounce">🌈</div>
                     </div>
                     <h3 class="text-xl font-bold text-lumiku-dark mb-4">Perspectiva Vincular</h3>
                     <p class="text-lumiku-dark/70 leading-relaxed">
@@ -692,8 +707,9 @@
         <div class="max-w-6xl mx-auto relative z-10">
             <div class="text-center">
                 <div class="flex items-center justify-center space-x-3 mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-lumiku-coral to-lumiku-gold rounded-full flex items-center justify-center shadow-lg">
-                        <span class="text-white font-bold text-xl">🌟</span>
+                    <!-- Logo placeholder en el footer -->
+                    <div class="w-12 h-12">
+                        <img src="assets/logo.svg" alt="Lumiku Logo" class="w-full h-full object-cover rounded-full">
                     </div>
                     <div>
                         <span class="font-bold text-2xl">LUMIKU</span>
